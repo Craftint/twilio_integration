@@ -1,0 +1,2 @@
+pyngrok~=5.1.0
+twilio==6.44.2
