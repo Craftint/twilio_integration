@@ -32,5 +32,21 @@ Your appointment is coming up on {{ doc.date }} at {{ doc.time }}
 			frm.set_df_property('message_examples', 'options', template);
 		}
 
+	},
+	document_type: function(frm) {
+		if (frm.doc.channel == 'WhatsApp') {
+			let fields = frappe.get_doc('DocType', frm.doc.document_type).fields;
+			let receiver_fields = $.map(fields, f => {
+				if (f.fieldtype == 'Phone' || f.fieldtype == 'Link' && ['Contact', 'User', 'Employee'].includes(f.options)) {
+					return f.fieldname
+				}
+				else return null;
+			});
+			frm.fields_dict.recipients.grid.update_docfield_property(
+				"receiver_by_document_field",
+				"options",
+				[""].concat(["document_owner"]).concat(receiver_fields)
+			);
+		}
 	}
 });
