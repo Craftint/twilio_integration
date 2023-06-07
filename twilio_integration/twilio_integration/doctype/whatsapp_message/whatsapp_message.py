@@ -68,15 +68,17 @@ class WhatsAppMessage(Document):
 		return wa_msg
 
 def incoming_message_callback(args):
-	wa_msg = frappe.get_doc({
-			'doctype': 'WhatsApp Message',
-			'from_': args.From,
-			'to': args.To,
-			'message': args.Body,
-			'profile_name': args.ProfileName,
-			'sent_received': args.SmsStatus.title(),
-			'id': args.MessageSid,
-			'send_on': frappe.utils.now(),
-			'status': 'Received'
-		}).insert(ignore_permissions=True)
+	if 'From' in args:
+		print(f'\n\n\n{args}\n\n\n')
+		wa_msg = frappe.get_doc({
+				'doctype': 'WhatsApp Message',
+				'from_': args.From,
+				'to': args.To,
+				'message': args.Body,
+				'profile_name': args.ProfileName,
+				'sent_received': args.SmsStatus.title(),
+				'id': args.MessageSid,
+				'send_on': frappe.utils.now(),
+				'status': 'Received'
+			}).insert(ignore_permissions=True)
 

@@ -19,6 +19,13 @@ fixtures = [{"dt": "Custom Field", "filters": [
 	]}
 , "Property Setter"]
 
+website_redirects = [
+    {
+        "source":"/whatsapp-incoming-message-handler-endpoint",
+        "target":"/api/method/twilio_integration.twilio_integration.api.incoming_whatsapp_message_handler"
+     }
+]
+
 # Includes in <head>
 # ------------------
 
